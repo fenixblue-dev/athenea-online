@@ -1,0 +1,65 @@
+.tech-news-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.tech-news-section h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--color-blue);
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.news-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.news-card h3 {
+  color: var(--color-text-dark);
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.news-meta {
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.news-link {
+  color: var(--color-orange);
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: color 0.2s;
+}
+
+.news-link:hover {
+  color: #e67e22;
+}
+
+.news-loading,
+.news-error {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #666;
+}

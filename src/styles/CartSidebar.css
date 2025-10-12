@@ -1,0 +1,213 @@
+/* ========================================================== */
+/* 1. CONTENEDOR PRINCIPAL DEL SIDEBAR                        */
+/* ========================================================== */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 360px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+  padding: 16px;
+  transition: right 0.3s ease;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-sidebar.open {
+  right: 0;
+}
+
+/* ========================================================== */
+/* 2. HEADER DEL CARRITO                                      */
+/* ========================================================== */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.cart-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.close-btn:hover {
+  transform: scale(1.1);
+}
+
+/* ========================================================== */
+/* 3. CONTENIDO (Lista de productos)                          */
+/* ========================================================== */
+.cart-content {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 12px;
+  padding-bottom: 20px;
+}
+
+/* Mensaje de carrito vacío */
+.empty {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+}
+
+/* ========================================================== */
+/* 4. ITEMS DEL CARRITO                                       */
+/* ========================================================== */
+.cart-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: flex-start;
+}
+
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.cart-item .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cart-item h4 {
+  font-size: 0.9rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.cart-item p {
+  font-size: 0.85rem;
+  margin: 0;
+  color: #666;
+}
+
+/* ========================================================== */
+/* 5. CONTROLES DE CANTIDAD                                   */
+/* ========================================================== */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.quantity-controls button {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.quantity-controls button:hover {
+  background: #e0e0e0;
+}
+
+.quantity-controls span {
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ========================================================== */
+/* 6. BOTÓN ELIMINAR                                          */
+/* ========================================================== */
+.remove-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+
+.remove-btn:hover {
+  background: #c82333;
+}
+
+/* ========================================================== */
+/* 7. FOOTER DEL CARRITO (Botones y Total)                    */
+/* ========================================================== */
+.cart-footer {
+  border-top: 2px solid #f0f0f0; 
+  padding-top: 10px;
+  flex-shrink: 0;
+}
+
+.total {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.cart-footer .footer-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.checkout-button, .clear-btn {
+  width: 50%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.checkout-button {
+  background-color: #28a745; 
+  color: white;
+}
+
+.checkout-button:hover {
+  background-color: #218838;
+}
+
+.clear-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.clear-btn:hover {
+  background: #c82333;
+}

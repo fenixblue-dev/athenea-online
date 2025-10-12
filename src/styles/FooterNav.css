@@ -1,0 +1,99 @@
+.footer-nav {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+
+  background: rgba(25, 25, 25, 0.45) !important;
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 14px 24px !important;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.5) !important;
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  z-index: 1000 !important;
+}
+
+/* Contenedor de los botones */
+.nav-buttons-wrapper {
+  display: flex !important;
+  flex-direction: row !important; /* Forzado a fila */
+  justify-content: space-evenly !important;
+  align-items: center !important;
+  flex-grow: 1 !important;
+  max-width: 600px !important;
+  gap: 18px !important;
+}
+
+/* Botones individuales */
+.nav-btn {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #e0e0e0 !important;
+  border-radius: 12px !important;
+  padding: 6px 10px !important;
+  font-size: 13px !important;
+  font-family: 'Poppins', sans-serif !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  width: 70px !important;
+  text-align: center !important;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 0 8px rgba(0, 196, 255, 0.4) !important;
+}
+
+/* Redes sociales */
+.social-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+}
+
+.social-icon {
+  font-size: 22px !important;
+  color: #ccc !important;
+  transition: all 0.25s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+}
+
+.social-icon:hover {
+  color: #00c4ff !important;
+  transform: translateY(-2px) scale(1.15) !important;
+  text-shadow: 0 0 8px rgba(0, 196, 255, 0.6) !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .footer-nav {
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 10px 16px !important;
+  }
+
+  .nav-buttons-wrapper {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 10px !important;
+  }
+
+  .nav-btn {
+    width: 60px !important;
+    font-size: 11px !important;
+  }
+}

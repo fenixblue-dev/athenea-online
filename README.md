@@ -26,6 +26,8 @@ Este proyecto es una tienda online completa que permite:
 - **Gestión de Cantidades**: Incrementar/decrementar productos en el carrito
 - **Cálculo de Total**: Actualización automática del precio total
 - **Persistencia de Estado**: El carrito mantiene su estado durante la sesión
+- **Vista Detallada de Productos**: Modal con imagen grande y controles mejorados
+- **Contador Visual en Footer**: Número animado que muestra productos en el carrito
 
 ### 🎨 Interfaz de Usuario
 - **Diseño Responsive**: Adaptado para móviles, tablets y desktop
@@ -33,6 +35,8 @@ Este proyecto es una tienda online completa que permite:
 - **Noticias Tecnológicas**: Sección con últimas noticias del sector
 - **Navegación Inferior**: Footer con acceso rápido al carrito
 - **Sidebar del Carrito**: Panel lateral deslizable para gestionar compras
+- **Botones Mejorados**: Footer con mejor visibilidad y efectos hover
+- **Modal de Productos**: Vista expandida al hacer click en productos
 
 ### 🔌 Integraciones
 - **FakeStore API**: Productos de electrónica externos

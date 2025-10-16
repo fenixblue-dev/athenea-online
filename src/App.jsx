@@ -64,7 +64,11 @@ function App() {
               onUpdateQuantity={updateQuantity}
               onClear={clearCart}
             />
-            <FooterNav onOpenCart={() => setIsCartOpen(true)} />
+            <FooterNav 
+  onOpenCart={() => setIsCartOpen(true)} 
+  cart={cart}
+  onNavigateHome={() => window.location.href = '/'} 
+/>
           </>
         } />
         
@@ -74,4 +78,11 @@ function App() {
   );
 }
 
-export default App;
+export default App;   
+
+
+
+
+
+
+

@@ -1,6 +1,35 @@
-/* ==================================== */
-/* 1. Header */
-/* ==================================== */
+/* ================================ */
+/* VARIABLES DE COLOR */
+/* ================================ */
+:root {
+  --color-orange: #FF8C00;
+  --color-green: #32CD32;
+  --color-blue: #1E90FF;
+  --color-light-blue: #B0E0E6;
+  --color-text-dark: #333;
+  --color-text-light: #fff;
+  --color-bg: #f5f5f5;
+  --color-border: #ddd;
+}
+
+/* ================================ */
+/* RESET Y BODY */
+/* ================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  background-color: var(--color-bg);
+  font-family: Arial, sans-serif;
+}
+
+/* ================================ */
+/* 1. HEADER */
+/* ================================ */
 .header {
   background-color: var(--color-blue);
   color: var(--color-text-light);
@@ -11,90 +40,119 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.header h1 {
-  margin: 0;
-  color: var(--color-orange);
-  font-size: 2rem;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+/* Responsive Header */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .search-bar {
+    width: 100%;
+    max-width: none;
+  }
 }
 
-.search-bar {
-  padding: 0.5rem;
-  border: none;
-  border-radius: 4px;
-  width: 300px;
-}
-
-/* ==================================== */
-/* 2. Product Grid (Galeria de Productos) */
-/* ==================================== */
-.product-grid {
-  /* Usamos Grid para crear una rejilla adaptable y uniforme */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  flex-grow: 1;
+/* ================================ */
+/* 2. MAIN & PRODUCT GRID */
+/* ================================ */
+main, .product-grid {
   width: 100%;
-  max-width: 1200px; /* Limita el ancho total */
+  max-width: none;
   margin: 0 auto;
+  padding: 0 10px;
 }
 
-/* ==================================== */
-/* 3. Product Card (Tarjeta Individual) */
-/* ==================================== */
+/* Grid Productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .product-grid {
+    /* permitir que el grid adapte columnas según espacio disponible */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 120px para que 2 columnas quepan en ~412px */
+    padding: 0 5px;
+    gap: 12px;
+  }
+
+  .product-card .image-container {
+    max-width: 100%;
+    aspect-ratio: 1 / 1; /* mantiene proporción en vertical */
+    margin: 0 auto 1rem;
+    max-height: 260px; /* evita que la imagen crezca demasiado */
+  }
+
+  .product-card .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* evita distorsión; usa contain si necesitas ver toda la imagen sin recortes */
+    object-position: center;
+    display: block;
+  }
+}
+
+/* ================================ */
+/* 3. PRODUCT CARD */
+/* ================================ */
 .product-card {
   background-color: var(--color-text-light);
   border: 1px solid var(--color-border);
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   transition: transform 0.2s;
-  /* Asegura que la tarjeta se estire uniformemente en el grid */
-  display: flex; 
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .product-card:hover {
   transform: translateY(-5px);
 }
 
-/* Contenedor CLAVE de la Imagen (Asegura Altura Fija) */
+
+/* Imagen: contenedor e imagen - mejor manejo responsive */
 .product-card .image-container {
-    width: 100%;
-    height: 200px;             /* ¡ALTURA FIJA PARA TODAS LAS TARJETAS! */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-}
-
-/* Imagen dentro del Contenedor (Asegura Escala) */
-.product-card .image-container img {
-    /* **ESTE ES EL CAMBIO CLAVE:** Le decimos que ocupe todo el espacio */
-    width: 100%;
-    height: 100%;
-    /* Se ajusta sin recortar dentro del espacio 100%x200px */
-    object-fit: contain; 
-    border-radius: 4px; /* Mantener solo el border-radius aquí si lo quieres en la imagen */
-}
-
-/* El estilo original del conflicto lo he movido a .image-container */
-/* para que solo aplique el borde y el margen: */
-/*
-.product-card img {
-  max-width: 100%; 
-  height: auto; 
+  width: 100%;
+  max-width: 100%; /* usar el ancho de la card */
+  aspect-ratio: 1 / 1; /* fuerza un contenedor cuadrado para evitar alturas gigantes */
+  overflow: hidden;
   border-radius: 4px;
-  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem; /* centrar horizontalmente en cards */
+  max-height: 360px; /* límite superior por seguridad */
 }
-*/
 
+.product-card .image-container img {
+  width: 100%;
+  height: 100%;           /* llenará el contenedor con aspect-ratio fijo */
+  object-fit: cover;      /* cover para mantener estética sin distorsionar */
+  object-position: center;
+  display: block;
+  border-radius: 4px;
+}
+
+/* Texto */
 .product-card h3 {
   margin: 0 0 0.5rem;
   color: var(--color-text-dark);
@@ -107,6 +165,7 @@
   margin: 0.5rem 0;
 }
 
+/* Botones */
 .product-card button {
   background-color: var(--color-orange);
   color: var(--color-text-light);
@@ -116,23 +175,29 @@
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.2s;
-  margin-top: auto; /* Empuja el botón al fondo si la tarjeta es más alta */
+  margin-top: auto;
 }
 
 .product-card button:hover {
   background-color: #e67e22;
 }
 
-/* ==================================== */
-/* 4. Cart Sidebar (Barra Lateral) */
-/* ==================================== */
+.product-card .added-to-cart-btn {
+  background-color: var(--color-green) !important;
+  cursor: default !important;
+  opacity: 0.8;
+}
+
+/* ================================ */
+/* 4. CART SIDEBAR */
+/* ================================ */
 .cart-container {
-  /* Si esto es un sidebar flotante, el CSS debe ser diferente (fixed/absolute) */
   width: 350px;
+  max-width: 100%;
   background-color: var(--color-light-blue);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
 }
@@ -153,7 +218,6 @@
   flex-grow: 1;
 }
 
-/* Cart Item */
 .cart-item {
   display: flex;
   justify-content: space-between;
@@ -232,21 +296,48 @@
 .checkout-button:hover {
   background-color: #1a7fc5 !important;
 }
-/* Estilo del botón cuando está en el carrito */
-.product-card .added-to-cart-btn {
-  background-color: var(--color-green) !important; /* Color verde para indicar éxito */
-  cursor: default !important;
-  opacity: 0.8;
+
+/* ================================ */
+/* MEDIA QUERY GENERAL PARA CART SIDEBAR */
+/* ================================ */
+@media (max-width: 768px) {
+  .cart-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }
 
-/* Estilo del botón normal (si tu botón de producto ya tiene estilos, esto solo lo asegura) */
-.product-card .add-to-cart-btn {
-  background-color: var(--color-orange); 
-  color: var(--color-text-light);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s;
+/* ================================ */
+/* AJUSTE DE IMÁGENES EN MÓVIL */
+/* ================================ */
+@media (max-width: 768px) {
+  .product-card .image-container {
+    /* permitir que la imagen use el ancho de la card sin excederlo */
+    max-width: 100%;
+    margin: 0 auto 1rem;
+    max-height: 260px;
+  }
+
+  .product-card .image-container img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* evita recortes y distorsión en vertical */
+    max-height: 260px;   /* evita que la imagen crezca demasiado */
+  }
+}
+
+/* AJUSTE DE IMÁGENES EN TABLET */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .product-card .image-container {
+    max-width: clamp(140px, 30vw, 300px);
+    margin: 0 auto 1rem;
+    max-height: 300px;
+  }
+
+  .product-card .image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 }

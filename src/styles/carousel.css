@@ -1,14 +1,32 @@
-/* Contenedor del carrusel */
 .carousel-container {
-  width: 100%;               /* Ocupa todo el ancho del contenedor padre */
-  max-width: 1000px;         /* Ancho máximo centrado */
-  height: 300px;             /* Altura ajustada */
-  margin: 0 auto 40px auto;  /* Centrado horizontal y margen inferior */
+  width: 100%;
+  max-width: 1000px;
+  height: 300px;
+  margin: 0 auto 40px auto;
   overflow: hidden;
   border-radius: 10px;
   position: relative;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+  .carousel-container {
+    height: 200px;
+    margin: 0 auto 20px auto;
+  }
+  
+  .carousel-image {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-container {
+    height: 150px;
+    margin: 0 auto 15px auto;
+  }
 }
 
 /* Cada slide */

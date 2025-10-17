@@ -6,7 +6,6 @@
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-
   background: rgba(25, 25, 25, 0.45) !important;
   backdrop-filter: blur(10px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
@@ -18,10 +17,46 @@
   z-index: 1000 !important;
 }
 
+/* Responsive para móvil */
+@media (max-width: 768px) {
+  .footer-nav {
+    padding: 10px 15px !important;
+  }
+  
+  .nav-buttons-wrapper {
+    gap: 10px !important;
+  }
+  
+  .nav-btn {
+    width: 60px !important;
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+  }
+  
+  .social-links {
+    gap: 10px !important;
+  }
+  
+  .social-icon {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-nav {
+    padding: 8px 10px !important;
+  }
+  
+  .nav-btn {
+    width: 50px !important;
+    font-size: 10px !important;
+  }
+}
+
 /* Contenedor de los botones */
 .nav-buttons-wrapper {
   display: flex !important;
-  flex-direction: row !important; /* Forzado a fila */
+  flex-direction: row !important;
   justify-content: space-evenly !important;
   align-items: center !important;
   flex-grow: 1 !important;

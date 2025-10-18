@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/carousel.css';
 
-// Importa las imágenes desde src/assets/images
-import bannerCuotas from '../assets/images/Ofertas.png';
-import bannerCursos from '../assets/images/p2_Hjn2P.jpeg';
-import bannerDescuento from '../assets/images/yd-rvsi2.jpeg';
-
+// Usar URLs de placeholder para imágenes que no existen localmente
 const images = [
-  { src: bannerCuotas, alt: 'Festival de Cuotas', link: '/promocion-1' },
-  { src: bannerCursos, alt: 'Nuevos Cursos', link: '/promocion-2' },
-  { src: bannerDescuento, alt: 'Descuento Especial', link: '/promocion-3' },
+  { src: 'https://picsum.photos/800/300?random=1', alt: 'Festival de Cuotas', link: '/promocion-1' },
+  { src: 'https://picsum.photos/800/300?random=2', alt: 'Nuevos Cursos', link: '/promocion-2' },
+  { src: 'https://picsum.photos/800/300?random=3', alt: 'Descuento Especial', link: '/promocion-3' },
 ];
 
 const Carousel = () => {

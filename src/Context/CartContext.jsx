@@ -1,79 +1,64 @@
-// src/context/CartContext.jsx
-
 import React, { createContext, useContext, useState } from 'react';
 
-// 1. Crear el Contexto
-const CartContext = createContext();
+const CartContext = createContext(null);
 
-// 2. Crear el Hook para usar el Contexto
 export const useCart = () => {
-  return useContext(CartContext);
+  const ctx = useContext(CartContext);
+  if (!ctx) {
+    console.warn('useCart usado fuera de CartProvider');
+    return {
+      cart: [],
+      addToCart: () => {},
+      updateQuantity: () => {},
+      removeItem: () => {},
+      clearCart: () => {},
+      total: 0,
+    };
+  }
+  return ctx;
 };
 
-// 3. Crear el Proveedor (Provider)
 export const CartProvider = ({ children }) => {
-  // Estado inicial del carrito
   const [cart, setCart] = useState([]);
 
-  // Función de ayuda para encontrar el índice (por ID y Color)
-  const findItemIndex = (id, selectedColor) => {
-    return cart.findIndex(
-      item => item.id === id && item.selectedColor === selectedColor
+  const addToCart = (product, quantity = 1, selectedColor = null) => {
+    if (!product || !product.id) return;
+    setCart(prev => {
+      const idx = prev.findIndex(
+        i => i.id === product.id && (i.selectedColor || null) === (selectedColor || null)
+      );
+      if (idx !== -1) {
+        const copy = [...prev];
+        copy[idx] = { ...copy[idx], quantity: (copy[idx].quantity || 0) + quantity };
+        return copy;
+      }
+      return [...prev, { ...product, quantity, selectedColor }];
+    });
+  };
+
+  const updateQuantity = (id, selectedColor = null, newQuantity) => {
+    if (typeof newQuantity !== 'number') return;
+    setCart(prev =>
+      prev
+        .map(i =>
+          i.id === id && (i.selectedColor || null) === (selectedColor || null)
+            ? { ...i, quantity: newQuantity }
+            : i
+        )
+        .filter(i => i.quantity > 0)
     );
   };
 
-  // A. Añadir Producto
-  const addToCart = (product, quantity = 1, selectedColor) => {
-    const index = findItemIndex(product.id, selectedColor);
-
-    if (index !== -1) {
-      // Si existe, actualiza la cantidad de forma inmutable
-      const newCart = [...cart];
-      newCart[index].quantity += quantity;
-      setCart(newCart);
-    } else {
-      // Si no existe, añade el nuevo ítem
-      const newItem = { ...product, quantity, selectedColor };
-      setCart(prevCart => [...prevCart, newItem]);
-    }
-  };
-
-  // B. Actualizar Cantidad
-  // Recibe id, selectedColor y la nueva cantidad
-  const updateQuantity = (id, selectedColor, newQuantity) => {
-    if (newQuantity < 1) {
-        // Si la nueva cantidad es 0 o menos, eliminamos el ítem
-        const itemToRemove = { id, selectedColor };
-        removeItem(itemToRemove);
-        return;
-    }
-
-    // Mapea y devuelve un NUEVO array con el ítem actualizado
-    const newCart = cart.map(item => {
-      if (item.id === id && item.selectedColor === selectedColor) {
-        return { ...item, quantity: newQuantity };
-      }
-      return item; 
-    });
-
-    setCart(newCart);
-  };
-  
-  // C. Eliminar Producto
-  // Recibe el objeto itemToRemove (con id y selectedColor)
   const removeItem = (itemToRemove) => {
-      setCart(prevCart => 
-          // Filtra y devuelve solo los ítems que NO coinciden en ID y Color
-          prevCart.filter(item => 
-              !(item.id === itemToRemove.id && item.selectedColor === itemToRemove.selectedColor)
-          )
-      );
+    if (!itemToRemove || !itemToRemove.id) return;
+    setCart(prev =>
+      prev.filter(i => !(i.id === itemToRemove.id && (i.selectedColor || null) === (itemToRemove.selectedColor || null)))
+    );
   };
 
-  // D. Vaciar Carrito
-  const clearCart = () => {
-    setCart([]);
-  };
+  const clearCart = () => setCart([]);
+
+  const total = cart.reduce((s, it) => s + (it.price || 0) * (it.quantity || 0), 0);
 
   const value = {
     cart,
@@ -81,9 +66,10 @@ export const CartProvider = ({ children }) => {
     updateQuantity,
     removeItem,
     clearCart,
-    // (Opcional) Puedes añadir aquí el total si no quieres calcularlo en los componentes
-    total: cart.reduce((acc, item) => acc + item.price * item.quantity, 0), 
+    total,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
+
+export default CartContext;

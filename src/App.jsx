@@ -16,6 +16,9 @@ import { useCart } from './Context/CartContext';
 import { fetchTechProducts } from './services/productsApi';
 import './styles/App.css';
 import './styles/components.css';
+import './styles/signup-form.css';
+import SignupForm from './components/SignupForm';
+
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -54,6 +57,7 @@ function App() {
             <main>
               <Carousel />
               <HomePage searchTerm={searchTerm} />
+              <SignupForm />
               <TechNews />
             </main>
             <CartSidebar
@@ -78,7 +82,7 @@ function App() {
   );
 }
 
-export default App;   
+export default App;
 
 
 

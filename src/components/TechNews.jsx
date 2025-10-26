@@ -24,13 +24,13 @@ const TechNews = () => {
     loadNews();
   }, []);
 
-  if (loading) return <div className="news-loading">Cargando noticias...</div>;
+  if (loading) return <div className="news-loading" role="status">Cargando noticias...</div>;
   
   if (error) {
     return (
       <section className="tech-news-section">
         <h2>Últimas Noticias de Tecnología</h2>
-        <div className="news-error">
+        <div className="news-error" role="alert">
           <p>⚠️ No se pudieron cargar las noticias en este momento.</p>
           <p style={{ fontSize: '0.9rem', marginTop: '10px' }}>Intenta recargar la página más tarde.</p>
         </div>
@@ -46,13 +46,20 @@ const TechNews = () => {
       </div>
       <div className="news-grid">
         {news.map((article) => (
-          <article key={article.id} className="news-card">
+          <article key={article.id} className="news-card" role="article">
             <h3>{article.title}</h3>
             <p className="news-meta">
               {article.author && <span>Por {article.author}</span>}
               {article.points && <span> • {article.points} puntos</span>}
             </p>
-            <a href={article.url} target="_blank" rel="noopener noreferrer" className="news-link">
+            <a
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="news-link"
+              aria-label={`Leer más sobre la noticia: ${article.title}`}
+              title={`Leer más sobre la noticia: ${article.title}`}
+            >
               Leer más →
             </a>
           </article>
@@ -62,4 +69,4 @@ const TechNews = () => {
   );
 };
 
-export default TechNews;
+export default React.memo(TechNews);

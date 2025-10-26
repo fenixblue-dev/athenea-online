@@ -1,0 +1,26 @@
+:root {
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --background-primary: #ffffff;
+  --accent-primary: #1E90FF;
+  --accent-secondary: #FF8C00;
+}
+
+*:focus-visible {
+  outline: 3px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent-primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}

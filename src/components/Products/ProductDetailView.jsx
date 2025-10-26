@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { FaTimes, FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../../Context/CartContext';
 import '../../styles/ProductDetailView.css';
@@ -6,39 +6,30 @@ import '../../styles/ProductDetailView.css';
 const ProductDetailView = ({ product, selectedColor, onClose, onAddToCart, onColorChange }) => {
   const { addToCart } = useCart();
 
-  // Función para obtener el nombre del color en español
   const getColorName = (color) => {
     const colorNames = {
-      'red': 'Rojo',
-      'blue': 'Azul',
-      'green': 'Verde',
-      'black': 'Negro',
-      'white': 'Blanco',
-      'yellow': 'Amarillo',
-      'pink': 'Rosa',
-      'purple': 'Morado',
-      'orange': 'Naranja',
-      'gray': 'Gris',
-      'brown': 'Marrón'
+      'red': 'Rojo', 'blue': 'Azul', 'green': 'Verde', 'black': 'Negro',
+      'white': 'Blanco', 'yellow': 'Amarillo', 'pink': 'Rosa',
+      'purple': 'Morado', 'orange': 'Naranja', 'gray': 'Gris', 'brown': 'Marrón'
     };
     return colorNames[color.toLowerCase()] || color;
   };
 
   const handleAddToCartClick = () => {
     onAddToCart();
-    onClose(); // Cerrar el modal después de agregar
+    onClose();
   };
 
   return (
     <div className="product-detail-overlay" onClick={onClose}>
-      <div className="product-detail-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="close-btn" onClick={onClose}>
+      <div className="product-detail-modal" onClick={(e) => e.stopPropagation()} title={`Detalle de ${product.name}`}>
+        <button className="close-btn" onClick={onClose} aria-label="Cerrar">
           <FaTimes />
         </button>
 
         <div className="product-detail-content">
           <div className="product-detail-image">
-            <img src={product.image} alt={product.name} />
+            <img src={product.image} alt={product.name} loading="lazy" />
           </div>
 
           <div className="product-detail-info">
@@ -46,7 +37,6 @@ const ProductDetailView = ({ product, selectedColor, onClose, onAddToCart, onCol
             <p className="product-price">${product.price.toFixed(2)}</p>
             <p className="product-description">{product.description}</p>
 
-            {/* CONTROLES DE COLOR */}
             <div className="color-selector-detail">
               <span className="color-label">Color:</span>
               <div className="color-options-detail">
@@ -55,6 +45,7 @@ const ProductDetailView = ({ product, selectedColor, onClose, onAddToCart, onCol
                     key={color}
                     className={`color-option-detail ${selectedColor === color ? 'selected' : ''}`}
                     onClick={() => onColorChange(color)}
+                    aria-label={`Seleccionar color ${getColorName(color)}`}
                   >
                     {getColorName(color)}
                   </button>
@@ -62,7 +53,11 @@ const ProductDetailView = ({ product, selectedColor, onClose, onAddToCart, onCol
               </div>
             </div>
 
-            <button className="add-to-cart-detail" onClick={handleAddToCartClick}>
+            <button
+              className="add-to-cart-detail"
+              onClick={handleAddToCartClick}
+              aria-pressed="false"
+            >
               <FaShoppingCart /> Añadir al Carrito - ${product.price.toFixed(2)}
             </button>
           </div>
@@ -72,4 +67,4 @@ const ProductDetailView = ({ product, selectedColor, onClose, onAddToCart, onCol
   );
 };
 
-export default ProductDetailView;
+export default React.memo(ProductDetailView);

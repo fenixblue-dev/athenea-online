@@ -49,19 +49,25 @@
   font-size: 0.85rem;
   font-weight: 500;
   color: #333;
+  outline: none; /* Para focus */
 }
 
 .color-option:hover {
   transform: translateY(-2px);
-  border-color: #999;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: #007bff; /* Azul más visual */
+  background: #e3f2fd; /* Fondo claro azul */
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+.color-option:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3); /* Indicador de focus accesible */
 }
 
 .color-option.selected {
-  border: 2px solid #333;
-  background: #333;
+  border: 2px solid #007bff; /* Azul no invasivo */
+  background: #007bff;
   color: white;
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
 }

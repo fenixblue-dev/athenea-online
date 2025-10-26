@@ -1,10 +1,10 @@
-//// src/components/Products/ProductCard.jsx
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../../Context/CartContext';
-import ProductDetailView from './ProductDetailView';
 import "../../styles/ProductCard.css";
+
+const ProductDetailViewLazy = React.lazy(() => import('./ProductDetailView'));
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
@@ -15,20 +15,13 @@ const ProductCard = ({ product }) => {
   const handleAddToCart = () => {
     const quantity = 1; 
     addToCart(product, quantity, selectedColor); 
-
     setAdded(true);
     setTimeout(() => setAdded(false), 1200); 
   };
 
-  const handleColorChange = (color) => {
-    setSelectedColor(color);
-  };
+  const handleColorChange = (color) => setSelectedColor(color);
+  const handleProductClick = () => setShowDetail(true);
 
-  const handleProductClick = () => {
-    setShowDetail(true);
-  };
-
-  // Función para obtener el nombre del color en español
   const getColorName = (color) => {
     const colorNames = {
       'red': 'Rojo',
@@ -49,50 +42,73 @@ const ProductCard = ({ product }) => {
   return (
     <>
       <div className="product-card">
+        {/* IMAGEN */}
         <img
           src={product.image}
           alt={product.name}
+          loading="lazy"           // Lazy loading
           onClick={handleProductClick}
           style={{ cursor: 'pointer' }}
         />
-        <h4 onClick={handleProductClick} style={{ cursor: 'pointer' }}>{product.name}</h4>
+
+        {/* NOMBRE PRODUCTO */}
+        <h3>
+          <a
+            href={`/product/${product.id}`}           // SEO-friendly link
+            title={`Ver detalles de ${product.name}`}
+            onClick={(e) => { e.preventDefault(); handleProductClick(); }}
+          >
+            {product.name}
+          </a>
+        </h3>
+
+        {/* PRECIO */}
         <p>${product.price.toFixed(2)}</p>
 
-          {/* CONTROLES DE COLOR */}
-          <div className="color-selector">
-        <span className="color-label">Color:</span>
-        {product.colors.map(color => (
-          <button
-            key={color}
-            className={`color-option ${selectedColor === color ? 'selected' : ''}`}
-            onClick={() => handleColorChange(color)}
-          >
-            {getColorName(color)}
-          </button>
-        ))}
-      </div>
-      
-      {/* BOTÓN AÑADIR AL CARRITO */}
-      <button 
-        className={`add-to-cart-btn ${added ? 'added' : ''}`} 
-        onClick={handleAddToCart}
-      >
-        <FaShoppingCart /> {added ? '¡Agregado!' : 'Añadir al Carrito'}
-      </button>
-    </div>
+        {/* SELECCIÓN DE COLOR */}
+        <div className="color-selector">
+          <span className="color-label">Color:</span>
+          {product.colors.map(color => (
+            <button
+              key={color}
+              className={`color-option ${selectedColor === color ? 'selected' : ''}`}
+              onClick={() => handleColorChange(color)}
+              aria-label={`Seleccionar color ${getColorName(color)}${selectedColor === color ? ', actualmente seleccionado' : ''}`}
+              aria-pressed={selectedColor === color}
+            >
+              {getColorName(color)}
+            </button>
+          ))}
+        </div>
 
-    {/* VISTA DETALLADA DEL PRODUCTO */}
-    {showDetail && (
-      <ProductDetailView
-        product={product}
-        selectedColor={selectedColor}
-        onClose={() => setShowDetail(false)}
-        onAddToCart={handleAddToCart}
-        onColorChange={handleColorChange}
-      />
-    )}
-  </>
+        {/* BOTÓN CARRITO */}
+        <button 
+          className={`add-to-cart-btn ${added ? 'added' : ''}`} 
+          onClick={handleAddToCart}
+          aria-label={added ? 'Producto agregado al carrito' : 'Agregar producto al carrito'}
+          title={added ? 'Producto agregado al carrito' : 'Agregar producto al carrito'}
+          aria-pressed={added}
+        >
+          <FaShoppingCart /> {added ? '¡Agregado!' : 'Añadir al Carrito'}
+        </button>
+      </div>
+
+      {/* VISTA DETALLADA DEL PRODUCTO */}
+      {showDetail && (
+        <Suspense fallback={<div>Cargando...</div>}>
+          <ProductDetailViewLazy
+            product={product}
+            selectedColor={selectedColor}
+            onClose={() => setShowDetail(false)}
+            onAddToCart={handleAddToCart}
+            onColorChange={handleColorChange}
+          />
+        </Suspense>
+      )}
+    </>
   );
 };
 
-export default ProductCard;
+// Memoización para mejorar rendimiento
+export default React.memo(ProductCard);
+

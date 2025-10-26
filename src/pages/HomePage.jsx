@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from 'react';
 // Importa ProductCard, ya que ahora lo renderizará directamente
 import ProductCard from '../components/Products/ProductCard'; 
-import { products as localProducts } from '../data/products';
-// Importa useCart si es que onAddToCart ya no se pasa como prop
+import { getAllProducts, productsLocal } from '../data/products';  // Cambiar esta línea
 import { useCart } from '../Context/CartContext';
 import { fetchTechProducts } from '../services/productsApi';
 
@@ -13,7 +12,7 @@ const HomePage = ({ searchTerm }) => {
   const { addToCart } = useCart();
   
   // Estado para productos (API o locales)
-  const [products, setProducts] = useState(localProducts);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [usingAPI, setUsingAPI] = useState(false);
   
@@ -31,13 +30,13 @@ const HomePage = ({ searchTerm }) => {
           id: p.id + 1000 // Evitar conflicto de IDs
         }));
         
-        const combined = [...localProducts, ...apiProductsWithNewIds];
+        const combined = [...productsLocal, ...apiProductsWithNewIds];
         setProducts(combined);
         setUsingAPI(true);
-        console.log('✅ Productos combinados:', combined.length, '(Locales:', localProducts.length, '+ API:', apiProducts.length, ')');
+        console.log('✅ Productos combinados:', combined.length, '(Locales:', productsLocal.length, '+ API:', apiProducts.length, ')');
       } catch (error) {
         console.warn('⚠️ API no disponible, usando solo productos locales:', error);
-        setProducts(localProducts);
+        setProducts(productsLocal);
         setUsingAPI(false);
       } finally {
         setLoading(false);

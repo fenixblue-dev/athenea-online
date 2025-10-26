@@ -19,7 +19,9 @@ import './styles/App.css';
 import './styles/components.css';
 import './styles/signup-form.css';
 import SignupForm from './components/SignupForm';
-import ProductDetailView from './components/Products/ProductDetailView'; 
+import ProductDetailView from './components/Products/ProductDetailView';
+import SocialSidebar from './components/SocialSidebar';
+import './styles/SocialSidebar.css'; 
 
 
 function App() {
@@ -57,6 +59,7 @@ function App() {
 
   return (
     <div className="app" style={{ minHeight: '100vh', paddingBottom: '70px' }}>
+      <SocialSidebar />
       <Routes>
         <Route path="/login" element={<Login />} />
         

@@ -1,21 +1,19 @@
 import React from 'react';
-import { FaHome, FaHeart, FaShoppingCart, FaPlay, FaInstagram, FaFacebook, FaTiktok } from "react-icons/fa";
+import { FaHome, FaHeart, FaShoppingCart, FaPlay } from "react-icons/fa";
+import SocialSidebar from './SocialSidebar'; // <-- componente donde moviste los iconos sociales
 import "../styles/FooterNav.css";
 
 export default React.memo(function FooterNav({ onOpenCart, cart = [] }) {
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  // safeCart ya tiene valor por defecto en los props
+  const safeCart = Array.isArray(cart) ? cart : [];
+  // evitar NaN si item.quantity es undefined
+  const totalItems = safeCart.reduce((total, item) => total + (Number(item?.quantity) || 0), 0);
 
   const navButtons = [
-    { icon: <FaHome />, label: "Inicio", onClick: () => window.location.href = '/' },
+    { icon: <FaHome />, label: "Inicio", onClick: () => (window.location.href = '/') },
     { icon: <FaHeart />, label: "Favoritos" },
     { icon: <FaShoppingCart />, label: "Carrito", onClick: onOpenCart, counter: totalItems },
     { icon: <FaPlay />, label: "Play" }
-  ];
-
-  const socialLinks = [
-    { icon: <FaInstagram />, href: "#", label: "Visitar nuestra página en Instagram", className: "instagram" },
-    { icon: <FaFacebook />, href: "#", label: "Visitar nuestra página en Facebook", className: "facebook" },
-    { icon: <FaTiktok />, href: "#", label: "Visitar nuestra página en TikTok", className: "tiktok" }
   ];
 
   return (
@@ -27,29 +25,19 @@ export default React.memo(function FooterNav({ onOpenCart, cart = [] }) {
             className={`nav-btn ${btn.label === "Carrito" ? 'cart-btn' : ''}`}
             onClick={btn.onClick}
             aria-label={btn.label}
-            aria-pressed={btn.label === "Carrito" && btn.counter > 0}
+            aria-pressed={btn.label === "Carrito" ? (btn.counter > 0) : undefined}
+            type="button"
           >
             {btn.icon}
             <span>{btn.label}</span>
-            {btn.counter > 0 && <span className="cart-counter">{btn.counter}</span>}
+            {btn.counter > 0 && <span className="cart-counter" aria-hidden="true">{btn.counter}</span>}
           </button>
         ))}
       </div>
 
+      {/* Renderiza el componente con los enlaces sociales que moviste */}
       <div className="social-links">
-        {socialLinks.map((link, i) => (
-          <a
-            key={i}
-            href={link.href}
-            className={`social-icon ${link.className}`}
-            aria-label={link.label}
-            title={link.label}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {link.icon}
-          </a>
-        ))}
+
       </div>
     </footer>
   );

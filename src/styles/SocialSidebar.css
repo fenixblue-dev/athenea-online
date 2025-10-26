@@ -1,0 +1,72 @@
+.social-sidebar {
+  position: fixed;
+  left: 20px; /* Lado izquierdo */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column; /* Uno arriba del otro */
+  gap: 15px;
+  z-index: 1001; /* Por encima de otros elementos */
+}
+
+.social-icon {
+  font-size: 28px;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  text-decoration: none;
+}
+
+/* Colores característicos */
+.social-icon.instagram {
+  color: #E4405F; /* Instagram rojo rosado */
+}
+
+.social-icon.facebook {
+  color: #1877F2; /* Facebook azul */
+}
+
+.social-icon.tiktok {
+  color: #FE2C55; /* TikTok rosa */
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.social-icon.instagram:hover {
+  color: #F77737; /* Hover más vibrante para Instagram */
+  text-shadow: 0 0 12px rgba(231, 76, 60, 0.6);
+}
+
+.social-icon.facebook:hover {
+  color: #42A5F5; /* Hover más vibrante para Facebook */
+  text-shadow: 0 0 12px rgba(33, 150, 243, 0.6);
+}
+
+.social-icon.tiktok:hover {
+  color: #FF4081; /* Hover más vibrante para TikTok */
+  text-shadow: 0 0 12px rgba(255, 64, 129, 0.6);
+}
+
+.social-icon:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive: Ajustar en móvil */
+@media (max-width: 768px) {
+  .social-sidebar {
+    left: 10px;
+  }
+  
+  .social-icon {
+    font-size: 24px;
+    padding: 8px;
+  }
+}
